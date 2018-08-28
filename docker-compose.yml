@@ -1,0 +1,26 @@
+version: '2'
+volumes:
+  # MySQL Data
+  laravel-mysql-data:
+    driver: local
+services:
+  # PHP (with Nginx)
+  app:
+    image: uotz/php7.2-nginx
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "8000:8080"
+  # MySQL (5.7)
+  mysql:
+    image: mysql:5.7
+    container_name: laravel-mysql
+    volumes:
+      - laravel-mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
